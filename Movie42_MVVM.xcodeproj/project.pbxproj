@@ -31,6 +31,9 @@
 		11EC22452B56E01B00E95D67 /* EntryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EC22442B56E01B00E95D67 /* EntryVC.swift */; };
 		11EC22472B56E02700E95D67 /* EntryView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EC22462B56E02700E95D67 /* EntryView.storyboard */; };
 		11EC22492B56E0E000E95D67 /* MyPageVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EC22482B56E0E000E95D67 /* MyPageVM.swift */; };
+		CCE196962B5785BD0086FFE0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE196952B5785BD0086FFE0 /* User.swift */; };
+		CCE196982B5785E20086FFE0 /* EntryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE196972B5785E20086FFE0 /* EntryVM.swift */; };
+		CCE1969A2B5786BE0086FFE0 /* ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE196992B5786BE0086FFE0 /* ObservableObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +63,9 @@
 		11EC22442B56E01B00E95D67 /* EntryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryVC.swift; sourceTree = "<group>"; };
 		11EC22462B56E02700E95D67 /* EntryView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EntryView.storyboard; sourceTree = "<group>"; };
 		11EC22482B56E0E000E95D67 /* MyPageVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVM.swift; sourceTree = "<group>"; };
+		CCE196952B5785BD0086FFE0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CCE196972B5785E20086FFE0 /* EntryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryVM.swift; sourceTree = "<group>"; };
+		CCE196992B5786BE0086FFE0 /* ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +122,7 @@
 				11EC222C2B56DCBF00E95D67 /* MovieSearchVM.swift */,
 				11EC22482B56E0E000E95D67 /* MyPageVM.swift */,
 				11EC223A2B56DE1200E95D67 /* RegisterVM.swift */,
+				CCE196972B5785E20086FFE0 /* EntryVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -124,6 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				11EC221E2B56AEE900E95D67 /* Movie.swift */,
+				CCE196952B5785BD0086FFE0 /* User.swift */,
+				CCE196992B5786BE0086FFE0 /* ObservableObject.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -280,15 +289,18 @@
 				11EC220C2B56AD8E00E95D67 /* Movie42_MVVM.xcdatamodeld in Sources */,
 				11EC22062B56AD8E00E95D67 /* ViewController.swift in Sources */,
 				11EC22312B56DD2100E95D67 /* MovieListVC.swift in Sources */,
+				CCE196982B5785E20086FFE0 /* EntryVM.swift in Sources */,
 				11EC22022B56AD8E00E95D67 /* AppDelegate.swift in Sources */,
 				11EC22042B56AD8E00E95D67 /* SceneDelegate.swift in Sources */,
 				11EC22352B56DD6300E95D67 /* MovieSearchVC.swift in Sources */,
 				11EC222F2B56DCCC00E95D67 /* MovieDetailVM.swift in Sources */,
+				CCE196962B5785BD0086FFE0 /* User.swift in Sources */,
 				11EC222D2B56DCBF00E95D67 /* MovieSearchVM.swift in Sources */,
 				11EC221F2B56AEE900E95D67 /* Movie.swift in Sources */,
 				11EC222B2B56DCA800E95D67 /* MovieListVM.swift in Sources */,
 				11EC22392B56DDEA00E95D67 /* MovieService.swift in Sources */,
 				11EC22412B56DE4800E95D67 /* MyPageVC.swift in Sources */,
+				CCE1969A2B5786BE0086FFE0 /* ObservableObject.swift in Sources */,
 				11EC22452B56E01B00E95D67 /* EntryVC.swift in Sources */,
 				11EC223B2B56DE1200E95D67 /* RegisterVM.swift in Sources */,
 				11EC223D2B56DE2700E95D67 /* RegisterVC.swift in Sources */,
