@@ -34,6 +34,9 @@
 		CCE196962B5785BD0086FFE0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE196952B5785BD0086FFE0 /* User.swift */; };
 		CCE196982B5785E20086FFE0 /* EntryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE196972B5785E20086FFE0 /* EntryVM.swift */; };
 		CCE1969A2B5786BE0086FFE0 /* ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE196992B5786BE0086FFE0 /* ObservableObject.swift */; };
+		CCE1969C2B57C8B40086FFE0 /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1969B2B57C8B40086FFE0 /* SignupVC.swift */; };
+		CCE1969E2B57D88A0086FFE0 /* SignupView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE1969D2B57D88A0086FFE0 /* SignupView.storyboard */; };
+		CCE196A02B57DDF90086FFE0 /* SignupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1969F2B57DDF90086FFE0 /* SignupVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +69,9 @@
 		CCE196952B5785BD0086FFE0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CCE196972B5785E20086FFE0 /* EntryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryVM.swift; sourceTree = "<group>"; };
 		CCE196992B5786BE0086FFE0 /* ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObject.swift; sourceTree = "<group>"; };
+		CCE1969B2B57C8B40086FFE0 /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
+		CCE1969D2B57D88A0086FFE0 /* SignupView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupView.storyboard; sourceTree = "<group>"; };
+		CCE1969F2B57DDF90086FFE0 /* SignupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,7 @@
 				11EC22482B56E0E000E95D67 /* MyPageVM.swift */,
 				11EC223A2B56DE1200E95D67 /* RegisterVM.swift */,
 				CCE196972B5785E20086FFE0 /* EntryVM.swift */,
+				CCE1969F2B57DDF90086FFE0 /* SignupVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -171,6 +178,8 @@
 			children = (
 				11EC22462B56E02700E95D67 /* EntryView.storyboard */,
 				11EC22442B56E01B00E95D67 /* EntryVC.swift */,
+				CCE1969B2B57C8B40086FFE0 /* SignupVC.swift */,
+				CCE1969D2B57D88A0086FFE0 /* SignupView.storyboard */,
 			);
 			path = Entry;
 			sourceTree = "<group>";
@@ -272,6 +281,7 @@
 				11EC223F2B56DE3400E95D67 /* RegisterView.storyboard in Resources */,
 				11EC22112B56AD8F00E95D67 /* LaunchScreen.storyboard in Resources */,
 				11EC220E2B56AD8F00E95D67 /* Assets.xcassets in Resources */,
+				CCE1969E2B57D88A0086FFE0 /* SignupView.storyboard in Resources */,
 				11EC22432B56DE5200E95D67 /* MyPageView.storyboard in Resources */,
 				11EC22332B56DD2F00E95D67 /* MovieListView.storyboard in Resources */,
 				11EC22092B56AD8E00E95D67 /* Main.storyboard in Resources */,
@@ -289,7 +299,9 @@
 				11EC220C2B56AD8E00E95D67 /* Movie42_MVVM.xcdatamodeld in Sources */,
 				11EC22062B56AD8E00E95D67 /* ViewController.swift in Sources */,
 				11EC22312B56DD2100E95D67 /* MovieListVC.swift in Sources */,
+				CCE196A02B57DDF90086FFE0 /* SignupVM.swift in Sources */,
 				CCE196982B5785E20086FFE0 /* EntryVM.swift in Sources */,
+				CCE1969C2B57C8B40086FFE0 /* SignupVC.swift in Sources */,
 				11EC22022B56AD8E00E95D67 /* AppDelegate.swift in Sources */,
 				11EC22042B56AD8E00E95D67 /* SceneDelegate.swift in Sources */,
 				11EC22352B56DD6300E95D67 /* MovieSearchVC.swift in Sources */,
