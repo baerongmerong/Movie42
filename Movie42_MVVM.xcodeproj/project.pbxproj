@@ -94,8 +94,10 @@
 			children = (
 				11EC22812B577BC800E95D67 /* Entry */,
 				11EC22752B577AF300E95D67 /* Model */,
-				11EC22772B577B0900E95D67 /* View */,
 				11EC22742B577AB000E95D67 /* ViewModel */,
+				11EC22772B577B0900E95D67 /* View */,
+				11EC22802B577BB400E95D67 /* AppDelegate */,
+				11EC227F2B577B9F00E95D67 /* Service */,
 				11EC22052B56AD8E00E95D67 /* ViewController.swift */,
 				11EC22072B56AD8E00E95D67 /* Main.storyboard */,
 				11EC220D2B56AD8F00E95D67 /* Assets.xcassets */,
@@ -114,8 +116,6 @@
 				11EC222C2B56DCBF00E95D67 /* MovieSearchVM.swift */,
 				11EC22482B56E0E000E95D67 /* MyPageVM.swift */,
 				11EC223A2B56DE1200E95D67 /* RegisterVM.swift */,
-				11EC22802B577BB400E95D67 /* AppDelegate */,
-				11EC227F2B577B9F00E95D67 /* Service */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -181,7 +181,6 @@
 				11EC22382B56DDEA00E95D67 /* MovieService.swift */,
 			);
 			name = Service;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		11EC22802B577BB400E95D67 /* AppDelegate */ = {
@@ -191,7 +190,6 @@
 				11EC22032B56AD8E00E95D67 /* SceneDelegate.swift */,
 			);
 			name = AppDelegate;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		11EC22812B577BC800E95D67 /* Entry */ = {
