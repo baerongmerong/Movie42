@@ -21,3 +21,10 @@ class MovieViewModel {
         return movies[idx]
     }
 }
+
+struct MovieInfo {
+  var title : String
+  var openDate : String
+  var theater : Int
+  var poster : String
+}

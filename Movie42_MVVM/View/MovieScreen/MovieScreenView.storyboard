@@ -13,7 +13,7 @@
         <!--MovieScreen View Controller-->
         <scene sceneID="s0b-cS-dO5">
             <objects>
-                <viewController storyboardIdentifier="MovieScreenView" id="Mae-yX-dHk" userLabel="MovieScreen View Controller" customClass="MovieScreenViewController" customModule="Movie42_MVVM" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieScreenViewController" id="Mae-yX-dHk" userLabel="MovieScreen View Controller" customClass="MovieScreenViewController" customModule="Movie42_MVVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mVJ-gy-had">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
