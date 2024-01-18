@@ -25,7 +25,7 @@ class EntryViewController : UIViewController {
     //영화목록으로 가는 함수
     private func goToMovieList() {
         let storyboard = UIStoryboard(name: "MovieListView", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "MoviewListViewController") as UIViewController
+        let vc = storyboard.instantiateViewController(withIdentifier: "MovieListViewController") as UIViewController
         
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)

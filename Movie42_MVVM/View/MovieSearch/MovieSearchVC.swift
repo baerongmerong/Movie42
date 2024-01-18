@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MovieSearchVC: UIViewController {
+class MovieSearchViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchTextField: UISearchBar!
     
@@ -21,6 +21,10 @@ class MovieSearchVC: UIViewController {
         // 초기데이터 로드
         setupReload()
         movieSearchVM.fetchData()
+        
+        // 콜렉션뷰의 데이터 소스 및 델리게이트 설정
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     private func setupReload() {
@@ -35,7 +39,7 @@ class MovieSearchVC: UIViewController {
 }
 
 // MARK: - UISearchBarDelegate
-extension MovieSearchVC: UISearchBarDelegate {
+extension MovieSearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // 검색어가 변경될 때마다 검색 수행
         movieSearchVM.performSearch(query: searchText)
@@ -50,7 +54,7 @@ extension MovieSearchVC: UISearchBarDelegate {
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension MovieSearchVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MovieSearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // 컬렉션 뷰 셀 설정
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollectionViewCell", for: indexPath) as? MovieCollectionViewCell else {
