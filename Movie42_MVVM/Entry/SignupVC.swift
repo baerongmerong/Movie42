@@ -32,11 +32,8 @@ class SignupViewController: UIViewController {
         viewModel.signup(name: name, id: id, password: pwd)
     }
 
-    // 메인 페이지로 이동
+    // entry 페이지로 이동
     private func goToEntryPage() {
-        guard let controller = storyboard?.instantiateViewController(withIdentifier: "EntryViewController") as? EntryViewController else {
-            return
-        }
-        present(controller, animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }
