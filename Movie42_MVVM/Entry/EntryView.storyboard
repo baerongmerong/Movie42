@@ -19,10 +19,10 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="pq6-ul-z7a">
                                 <rect key="frame" x="20" y="216.00000000000003" width="353" height="117.33333333333334"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="176" translatesAutoresizingMaskIntoConstraints="NO" id="BSr-N9-DoF">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="176" translatesAutoresizingMaskIntoConstraints="NO" id="BSr-N9-DoF">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="56.333333333333336"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T0r-Uk-ge0">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0r-Uk-ge0">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="56.333333333333336"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mXg-zW-UKS">
@@ -40,15 +40,24 @@
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="56.329999999999998" id="cH8-Ka-DJ3"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GJk-y1-Ixb">
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJk-y1-Ixb">
                                         <rect key="frame" x="0.0" y="62.333333333333314" width="353" height="55"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ldG-wv-YmW">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ldG-wv-YmW">
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="55"/>
                                                 <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jlQ-kv-3PR">
+                                                        <rect key="frame" x="189" y="9.6666666666666288" width="97" height="34"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="비밀번호 :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4zO-wW-8Zg">
                                                         <rect key="frame" x="53" y="17" width="68" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -56,21 +65,18 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jlQ-kv-3PR">
-                                                        <rect key="frame" x="189" y="10" width="97" height="34"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55" id="fJC-YV-P03"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QeY-MM-ubb">
-                                <rect key="frame" x="159" y="456.66666666666669" width="75" height="34.333333333333314"/>
+                                <rect key="frame" x="159" y="456.66666666666674" width="75" height="34.333333333333314"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Button"/>
                                 <connections>
@@ -78,7 +84,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIH-eY-KOF">
-                                <rect key="frame" x="159" y="396.33333333333331" width="75" height="34.333333333333314"/>
+                                <rect key="frame" x="159" y="396.33333333333337" width="75" height="34.333333333333314"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <connections>
@@ -89,11 +95,15 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="QeY-MM-ubb" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="159" id="07v-uB-jgG"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="QeY-MM-ubb" secondAttribute="trailing" constant="159" id="28J-lr-eXg"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="QeY-MM-ubb" secondAttribute="bottom" constant="327" id="2cv-Rh-8sF"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="bIH-eY-KOF" secondAttribute="trailing" constant="159" id="Cjv-Lc-22M"/>
                             <constraint firstAttribute="trailing" secondItem="pq6-ul-z7a" secondAttribute="trailing" constant="20" id="DBf-yP-9zV"/>
                             <constraint firstItem="QeY-MM-ubb" firstAttribute="top" secondItem="bIH-eY-KOF" secondAttribute="bottom" constant="26" id="MPx-xQ-c3V"/>
                             <constraint firstItem="pq6-ul-z7a" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="asY-df-lYn"/>
                             <constraint firstItem="bIH-eY-KOF" firstAttribute="top" secondItem="pq6-ul-z7a" secondAttribute="bottom" constant="63" id="egn-cR-F1Q"/>
+                            <constraint firstItem="bIH-eY-KOF" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="159" id="srR-6C-PZr"/>
                             <constraint firstItem="pq6-ul-z7a" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="157" id="uUw-Y5-cFO"/>
                         </constraints>
                     </view>
