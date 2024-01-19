@@ -29,13 +29,6 @@ class EntryViewController : UIViewController {
         
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)
-        //확인용으로 알람창 띄우기
-//        let alert = UIAlertController(title: "로그인 성공", message: "간단한 메시지", preferredStyle: .alert)
-//        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
-//            print("확인 버튼이 눌렸습니다.")
-//        }
-//        alert.addAction(okAction)
-//        present(alert, animated: true, completion: nil)
     }
     
     //처음회원가입 하는 경우
@@ -53,5 +46,15 @@ class EntryViewController : UIViewController {
               let pwd = pwdField.text
         else { return }
         viewModel.login(id: id, password: pwd)
+        setLoggedInUser(id: id)
+    }
+}
+
+extension EntryViewController {
+    
+    //로그인한 사용자 정보를 저장하는 함수
+    func setLoggedInUser(id: String) {
+        let loggedInUser = UserDefaultManager.shared.datas.first { $0.userid == id }
+        UserDefaults.standard.set(loggedInUser?.userid, forKey: "loggedInUserId")
     }
 }

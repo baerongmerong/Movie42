@@ -4,7 +4,8 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var idField: UITextField!
     @IBOutlet weak var pwdField: UITextField!
-
+    @IBOutlet weak var nnField: UITextField!
+    
     private let viewModel = SignupViewModel()
 
     override func viewDidLoad() {
@@ -27,9 +28,10 @@ class SignupViewController: UIViewController {
     @IBAction func signupBtnClicked(_ sender: Any) {
         guard let name = nameField.text,
               let id = idField.text,
-              let pwd = pwdField.text
+              let pwd = pwdField.text,
+              let nickname = nnField.text
         else { return }
-        viewModel.signup(name: name, id: id, password: pwd)
+        viewModel.signup(name: name, nickname: nickname, id: id, password: pwd)
     }
 
     // entry 페이지로 이동
