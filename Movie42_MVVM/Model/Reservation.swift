@@ -11,7 +11,7 @@ struct Reservation: Codable {
     var movieTitle: String
     var date: Date
     var time: String
-    var numberOfTickets: Int // 추가된 부분
+    var numberOfTickets: Int 
 
     init(movieTitle: String, date: Date, time: String, numberOfTickets: Int) {
         self.movieTitle = movieTitle
