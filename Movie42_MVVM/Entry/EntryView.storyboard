@@ -76,17 +76,17 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QeY-MM-ubb">
-                                <rect key="frame" x="159" y="456.66666666666674" width="75" height="34.333333333333314"/>
+                                <rect key="frame" x="159" y="456.66666666666674" width="75" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="로그인"/>
                                 <connections>
                                     <action selector="loginBtnClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="zpt-V6-1tO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIH-eY-KOF">
-                                <rect key="frame" x="159" y="396.33333333333337" width="75" height="34.333333333333314"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIH-eY-KOF">
+                                <rect key="frame" x="148" y="396" width="93" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="회원가입"/>
                                 <connections>
                                     <action selector="signupBtnClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="YXn-sj-Oj4"/>
                                 </connections>

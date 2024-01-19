@@ -3,6 +3,7 @@ import Foundation
 //회원가입 된 유저의 구조체
 struct User : Codable {
     var name : String
+    var nickname : String
     var userid : String
     var pwd : String
 }
@@ -28,6 +29,27 @@ class UserDefaultManager {
         set {
             if let encodedData = try? JSONEncoder().encode(newValue) {
                 self.userDefaults.set(encodedData, forKey: "users")
+            }
+        }
+    }
+    
+    //현재 로그인한 사용자 정보를 가져오는 함수
+    func getLoggedInUser() -> User? {
+        if let loggedInUserId = UserDefaults.standard.string(forKey: "loggedInUserId") {
+            return UserDefaultManager.shared.datas.first { $0.userid == loggedInUserId }
+        }
+        return nil
+    }
+    
+    func updateLoggedInUser(_ user: User) {
+        if var users = userDefaults.data(forKey: "users"),
+           var decodedData = try? JSONDecoder().decode([User].self, from: users) {
+
+            if let index = decodedData.firstIndex(where: { $0.userid == user.userid }) {
+                decodedData[index] = user
+                if let encodedData = try? JSONEncoder().encode(decodedData) {
+                    userDefaults.set(encodedData, forKey: "users")
+                }
             }
         }
     }
