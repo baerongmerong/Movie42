@@ -7,18 +7,20 @@
 
 import Foundation
 
-class MovieSearchVM {
+class MovieSearchViewModel {
     private let movieService = MovieService()
     
     // 화면 업데이트를 위한 클로저타입 프로퍼티
     var updateMovie: (() -> Void)?
     
+    // 검색 미리보기 업데이트를 위한 클로저타입 프로퍼티
+    var updatePreviewLabel: (() -> Void)?
+    
     // 전체 영화목록을 저장하는 배열
-    private var allMovies: [Movie] = [] {
+    internal var allMovies: [Movie] = [] {
         didSet {
             // 전체 영화목록이 업데이트되면 화면을 업데이트하는 클로저 호출
             updateMovie?()
-            //print("All Movies Updated: \(allMovies)")
         }
     }
     
@@ -27,7 +29,14 @@ class MovieSearchVM {
         didSet {
             // 현재 데이터가 업데이트되면 화면을 업데이트하는 클로저 호출
             updateMovie?()
-            //print("Current Data Updated: \(currentData)")
+        }
+    }
+    
+    // 현재 검색어에 대한 미리보기 텍스트를 저장하는 배열
+    private var previewTitles: [String] = [] {
+        didSet {
+            // 미리보기 텍스트가 업데이트되면 클로저 호출
+            updatePreviewLabel?()
         }
     }
     
@@ -65,7 +74,37 @@ class MovieSearchVM {
                 $0.title.lowercased().contains(query.lowercased())
             }
         }
-        print("performSearch currentData : \(currentData)")
+        // 검색 미리보기 라벨 업데이트
+        updatePreviewTitles(with: query)
+    }
+    
+    // 현재 검색어에 대한 미리보기 텍스트를 가져오는 메서드
+    func getPreviewTitles() -> [String] {
+        return previewTitles
+    }
+    
+    // 검색 미리보기 텍스트 업데이트
+    func updatePreviewTitles(with searchText: String) {
+        if searchText.isEmpty {
+            // 검색어가 비어있다면 미리보기 텍스트 제거
+            previewTitles = []
+        } else {
+            // 검색어가 있을 경우 해당 검색어에 대한 미리보기 텍스트 생성 및 업데이트
+            previewTitles = generatePreviewText(for: searchText)
+        }
+        // 미리보기 라벨 업데이트 클로저 호출
+        updatePreviewLabel?()
+    }
+    
+    // 검색어에 대한 미리보기 텍스트를 생성하는 메서드
+    private func generatePreviewText(for searchText: String) -> [String] {
+        // 여기에서 검색어에 대한 미리보기 텍스트를 생성하고 반환하는 로직을 작성
+        // 예를 들어, 현재 데이터에서 검색어를 포함하는 영화 제목들을 가져올 수 있습니다.
+        let filteredTitles = allMovies
+            .filter { $0.title.lowercased().contains(searchText.lowercased()) }
+            .map { $0.title }
+
+        return filteredTitles
     }
     
     // 현재 데이터의 개수를 반환
@@ -77,4 +116,5 @@ class MovieSearchVM {
     func item(at index: Int) -> Movie {
         return currentData[index]
     }
+    
 }
