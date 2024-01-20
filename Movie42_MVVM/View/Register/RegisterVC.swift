@@ -31,11 +31,11 @@ class ReservationViewController: UIViewController {
     // 결제 버튼을 눌렀을 때 호출되는 메서드
     @IBAction func ticketingButtonTapped(_ sender: UIButton) {
         print("Book button tapped") // 디버깅
-        reservationViewModel.saveReservation()
+        reservationViewModel.saveReservation(with: UserDefaultManager.shared.getLoggedInUser(), with: selectedMovie, with: dateDatePicker.date)
         updateUI()
         
         // 예매 완료 알림창 표시
-        showReservationCompletionAlert()
+        showReservationCompletionAlert()        
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
@@ -102,7 +102,7 @@ class ReservationViewController: UIViewController {
             // 사용자에게 경고 표시
                   let alert = UIAlertController(title: "경고", message: "예매 정보가 부족합니다.", preferredStyle: .alert)
                   let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-                  alert.addAction(okAction)
+                 alert.addAction(okAction)
                   
                   present(alert, animated: true, completion: nil)
         }

@@ -21,6 +21,9 @@ class MovieDetailViewController: UIViewController {
     // 선택된 영화의 ID
     var selectedMovieID: Int = 0
     
+    var heartMovie: Movie?
+    
+    //선택, 즉 이전 컬렉션에서 선택한 영화
     var selectedMovie: Movie?
     
     override func viewDidLoad() {
@@ -55,9 +58,9 @@ class MovieDetailViewController: UIViewController {
         // 화면 업데이트 메서드
         private func updateUI() {
         // 영화 제목 설정
-        movieTitleLabel.text = movieDetailViewModel.movieTitle
+            movieTitleLabel.text = selectedMovie?.title
         // 영화 포스터 이미지 설정
-        if let posterURL = movieDetailViewModel.moviePosterURL {
+            if let posterURL = selectedMovie?.posterURL {
         // 비동기적으로 이미지를 로드하여 설정
         DispatchQueue.global().async {
         if let data = try? Data(contentsOf: posterURL),
@@ -70,11 +73,11 @@ class MovieDetailViewController: UIViewController {
     }
             
             // 영화 줄거리 설정
-            movieText.text = movieDetailViewModel.movieOverview
+            movieText.text = selectedMovie?.overview
         }
         
         @IBAction func heartButtonTapped(_ sender: UIButton) {
-            guard let selectedMovie = selectedMovie else {
+            guard let heartMovie = heartMovie else {
             // selectedMovie가 nil인 경우 처리
             return
             }
@@ -82,7 +85,7 @@ class MovieDetailViewController: UIViewController {
             // 버튼의 isSelected 상태를 토글
             sender.isSelected.toggle()
             // MovieDetailViewModel에게 하트 버튼 상태 업데이트 요청
-                 movieDetailViewModel.setHeartSelectedState(sender.isSelected, movie: selectedMovie)
+                 movieDetailViewModel.setHeartSelectedState(sender.isSelected, movie: heartMovie)
                  print("heartButtonTapped - isSelected: \(sender.isSelected)") // 디버깅
              }
     
