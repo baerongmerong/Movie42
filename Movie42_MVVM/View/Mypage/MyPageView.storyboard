@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--My Page View Controller-->
+        <!--My Page-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="MyPageViewController" id="Y6W-OH-hqX" customClass="MyPageViewController" customModule="Movie42_MVVM" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gzR-AJ-CgI">
-                                <rect key="frame" x="20" y="84" width="353" height="710.33333333333337"/>
+                                <rect key="frame" x="20" y="84" width="353" height="661.33333333333337"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Page" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFo-Tb-BOV">
                                         <rect key="frame" x="0.0" y="0.0" width="79.333333333333329" height="25.333333333333332"/>
@@ -83,7 +83,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5gx-us-oxD">
-                                        <rect key="frame" x="0.0" y="339.33333333333326" width="353" height="371"/>
+                                        <rect key="frame" x="0.0" y="339.33333333333331" width="353" height="321.99999999999994"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reservationCell" id="CcA-Rk-QlV">
@@ -116,6 +116,8 @@
                             <constraint firstItem="gzR-AJ-CgI" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="25" id="fif-PD-I7y"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="My Page" image="person.fill" catalog="system" id="bhd-KM-Ixo"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="id" destination="oFz-A1-yjZ" id="Ca0-wr-t8T"/>
                         <outlet property="movieTV" destination="5gx-us-oxD" id="bxK-Jh-Wlj"/>
@@ -130,6 +132,7 @@
     </scenes>
     <resources>
         <image name="magnifyingglass.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <namedColor name="darkpink">
             <color red="0.94901960784313721" green="0.74509803921568629" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

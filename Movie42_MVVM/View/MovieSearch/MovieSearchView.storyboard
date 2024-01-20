@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Movie Search View Controller-->
+        <!--Search-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="MovieSearchViewController" id="Y6W-OH-hqX" customClass="MovieSearchViewController" customModule="Movie42_MVVM" customModuleProvider="target" sceneMemberID="viewController">
@@ -81,6 +81,8 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="Y3S-Ks-RUh"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="zSP-b3-8ps" id="3tm-3b-gdf"/>
                         <outlet property="previewLabel" destination="BXW-tY-jZg" id="NxU-gw-aJN"/>
@@ -94,6 +96,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
