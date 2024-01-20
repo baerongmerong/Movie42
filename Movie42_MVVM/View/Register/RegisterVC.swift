@@ -12,6 +12,8 @@ class ReservationViewController: UIViewController {
     @IBOutlet weak var TicketsStepper: UIStepper!
     @IBOutlet weak var totalPriceLabel: UILabel!
     
+    var selectedMovie: Movie?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // 초기화 및 필요한 설정
@@ -51,7 +53,7 @@ class ReservationViewController: UIViewController {
     func updateUI() {
         print("updateUI called") // 디버깅
         
-        movieTitleLabel.text = reservationViewModel.selectedMovie?.title
+        movieTitleLabel.text = selectedMovie?.title
         reservationViewModel.selectedDate = dateDatePicker.date
         numberOfTickets.text = "\(reservationViewModel.selectedNumberOfTickets ?? 0) 명"
         let totalPrice = calculateTotalPrice(using: reservationViewModel)
@@ -76,7 +78,7 @@ class ReservationViewController: UIViewController {
 
     
     func showReservationCompletionAlert() {
-        if let movieTitle = reservationViewModel.selectedMovie?.title,
+        if let movieTitle = selectedMovie?.title,
            let date = reservationViewModel.selectedDate,
            let time = reservationViewModel.selectedTime {
             
