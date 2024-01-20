@@ -6,18 +6,20 @@ struct User : Codable {
     var nickname : String
     var userid : String
     var pwd : String
-}
+    var reservations: [Reservation] = []
 
-//userdefault로 저장하게 하는 manager
+        }
+    
+    //userdefault로 저장하게 하는 manager
 class UserDefaultManager {
     static let shared = UserDefaultManager()
-
+    
     private let userDefaults: UserDefaults
-
+    
     init() {
         self.userDefaults = UserDefaults.standard
     }
-
+    
     var datas: [User] {
         get {
             if let savedData = userDefaults.data(forKey: "users"),
@@ -40,17 +42,17 @@ class UserDefaultManager {
         }
         return nil
     }
-    
-    func updateLoggedInUser(_ user: User) {
-        if var users = userDefaults.data(forKey: "users"),
-           var decodedData = try? JSONDecoder().decode([User].self, from: users) {
-
-            if let index = decodedData.firstIndex(where: { $0.userid == user.userid }) {
-                decodedData[index] = user
-                if let encodedData = try? JSONEncoder().encode(decodedData) {
-                    userDefaults.set(encodedData, forKey: "users")
+        func updateLoggedInUser(_ user: User) {
+            if var users = userDefaults.data(forKey: "users"),
+               var decodedData = try? JSONDecoder().decode([User].self, from: users) {
+                
+                if let index = decodedData.firstIndex(where: { $0.userid == user.userid }) {
+                    decodedData[index] = user
+                    if let encodedData = try? JSONEncoder().encode(decodedData) {
+                        userDefaults.set(encodedData, forKey: "users")
+                    }
                 }
             }
         }
     }
-}
+

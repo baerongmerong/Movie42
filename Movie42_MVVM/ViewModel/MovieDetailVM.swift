@@ -1,8 +1,80 @@
-//
-//  MovieDetailVM.swift
-//  Movie42_MVVM
-//
-//  Created by Bae on 1/17/24.
-//
+
 
 import Foundation
+
+class MovieDetailViewModel {
+    private let movieService = MovieService()
+    private let userSettings = UserSettings()
+    var change: ObservableObject<String?> = ObservableObject("Nothing Changed")
+
+    // 영화 상세 정보를 저장하는 속성
+        private var movie: Movie?
+
+    // 영화 정보를 가져오는 메서드
+    func fetchMovieDetails(for movieID: Int) {
+        movieService.fetchMovies(for: .nowPlaying) { [weak self] (result: Result<MovieResponse, Error>) in
+            switch result {
+            case .success(let movieResponse):
+                if let movie = movieResponse.results.first {
+                    self?.movie = movie
+                    // 변경 사항 알림
+                    self?.change.value = "영화 정보가 업데이트되었습니다."
+                } else {
+                    // 해당 ID에 대한 영화가 없는 경우 처리
+                    print("Error MovieDetailViewModel fetchMovieDetails: Movie not found for ID \(movieID)")
+                }
+            case .failure(let error):
+                // 에러 처리
+                print("Error MovieDetailViewModel fetchMovieDetails: \(error.localizedDescription)")
+            }
+        }
+    }
+
+
+        // 영화 포스터 URL을 반환하는 계산된 속성
+        var moviePosterURL: URL? {
+            return movie?.posterURL
+        }
+
+        // 영화 제목을 반환하는 계산된 속성
+        var movieTitle: String? {
+            return movie?.title
+        }
+
+        // 영화 줄거리를 반환하는 계산된 속성
+        var movieOverview: String? {
+            return movie?.overview
+        }
+    
+    
+    func setHeartSelectedState(_ isSelected: Bool, movie: Movie) {
+        userSettings.saveHeartSelectedState(isSelected, for: movie)
+
+        // 만약 로그인 상태인 경우에만 유저 정보 업데이트
+        if var loggedInUser = UserDefaultManager.shared.getLoggedInUser() {
+            var updatedUser = loggedInUser
+
+            // 찜한 영화를 사용자 정보에 추가 또는 제거
+            if isSelected {
+                // 이미 찜 목록에 있는지 확인 후 없으면 추가
+                if !updatedUser.reservations.contains(where: { $0.movieTitle == movie.title }) {
+                    let reservation = Reservation(movieTitle: movie.title, date: Date(), time: "", numberOfTickets: 0)
+                    updatedUser.reservations.append(reservation)
+                }
+            } else {
+                // 이미 찜한 영화를 취소한 경우, 해당 영화를 찜 목록에서 제거
+                updatedUser.reservations.removeAll { $0.movieTitle == movie.title }
+            }
+
+            // 사용자 정보 업데이트
+            UserDefaultManager.shared.updateLoggedInUser(updatedUser)
+
+            // 변경 사항 알림
+            change.value = "사용자 정보가 업데이트되었습니다."
+        }
+    }
+
+    func getHeartSelectedState(for movie: Movie) -> Bool {
+        return userSettings.loadHeartSelectedState(for: movie)
+    }
+}
