@@ -77,16 +77,16 @@ class MovieDetailViewController: UIViewController {
         }
         
         @IBAction func heartButtonTapped(_ sender: UIButton) {
-            guard let heartMovie = heartMovie else {
+            guard let selectedMovie = selectedMovie else {
             // selectedMovie가 nil인 경우 처리
             return
             }
             
             // 버튼의 isSelected 상태를 토글
-            sender.isSelected.toggle()
-            // MovieDetailViewModel에게 하트 버튼 상태 업데이트 요청
-                 movieDetailViewModel.setHeartSelectedState(sender.isSelected, movie: heartMovie)
-                 print("heartButtonTapped - isSelected: \(sender.isSelected)") // 디버깅
+                sender.isSelected.toggle()
+                print("heartButtonTapped - isSelected: \(sender.isSelected)") // 디버깅 출력
+                // MovieDetailViewModel에게 하트 버튼 상태 업데이트 요청
+                movieDetailViewModel.setHeartSelectedState(sender.isSelected, movie: selectedMovie)
              }
     
     @IBAction func registerBtnTapped() {

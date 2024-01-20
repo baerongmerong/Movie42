@@ -7,6 +7,7 @@ struct User : Codable {
     var userid : String
     var pwd : String
     var reservations: [Reservation] = []
+    var favoriteMovies: [Movie] = []
 
         }
     

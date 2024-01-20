@@ -90,6 +90,7 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
                 // 셀에 예약 정보를 표시
                 cell.textLabel?.text = " \(reservation.movieTitle) | \(reservation.numberOfTickets)명"
             }
+            
             return cell
         }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

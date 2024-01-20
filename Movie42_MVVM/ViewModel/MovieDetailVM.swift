@@ -5,8 +5,7 @@ import Foundation
 class MovieDetailViewModel {
     private let movieService = MovieService()
     private let userSettings = UserSettings()
-    var change: ObservableObject<String?> = ObservableObject("Nothing Changed")
-
+    var change: ObservableObject<String?> = ObservableObject<String?>("Nothing Changed")
     // 영화 상세 정보를 저장하는 속성
         private var movie: Movie?
 
