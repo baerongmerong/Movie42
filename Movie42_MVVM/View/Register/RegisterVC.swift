@@ -85,7 +85,7 @@ class ReservationViewController: UIViewController {
             let numberOfTickets = reservationViewModel.selectedNumberOfTickets ?? 0
 
             let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd h:mm a"
+            formatter.dateFormat = "yyyy년 M월d일 h:mm a"
 
             let dateString = formatter.string(from: date)
             let message = "\(dateString) \(time)에 \(numberOfTickets)명 예매가 완료되었습니다."

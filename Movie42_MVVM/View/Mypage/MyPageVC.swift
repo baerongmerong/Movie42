@@ -92,6 +92,32 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
             }
             return cell
         }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         if let reservation = user?.reservations[indexPath.row] {
+             showReservationDetailsAlert(for: reservation)
+         }
+     }
+
+    private func showReservationDetailsAlert(for reservation: Reservation) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy년 M월d일 h:mm a"
+            
+            let dateString = formatter.string(from: reservation.date)
+            
+            let message = """
+        
+        \(dateString)
+        \(reservation.numberOfTickets)명
+        
+        - 영화 예매는 Move 42 -
+        """
+            
+            let alert = UIAlertController(title: "\(reservation.movieTitle)", message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            present(alert, animated: true, completion: nil)
+        }
+
     
 }
