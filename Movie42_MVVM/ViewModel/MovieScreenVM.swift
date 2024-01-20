@@ -82,13 +82,20 @@ class MovieScreenVM {
                 return topRatedMovies.count
             case .upcoming:
                 return upcomingMovies.count
-            default:
-                return 0
             }
         }
 
     // 특정 인덱스의 값을 반환
-    func item(at index: Int) -> Movie {
-        return currentData[index]
+    func item(at index: Int, for section: MovieCategory) -> Movie {
+        switch section {
+        case .nowPlaying:
+            return nowPlayingMovies[index]
+        case .popular:
+            return popularMovies[index]
+        case .topRated:
+            return topRatedMovies[index]
+        case .upcoming:
+            return upcomingMovies[index]
+        }
     }
 }

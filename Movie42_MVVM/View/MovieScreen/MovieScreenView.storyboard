@@ -24,7 +24,7 @@
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DwT-pd-RvO">
                                     <size key="itemSize" width="153" height="181"/>
                                     <size key="headerReferenceSize" width="50" height="50"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="50" height="50"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
@@ -64,7 +64,7 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="NXM-dd-qgi">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="" id="NXM-dd-qgi" customClass="SectionHeaderView" customModule="Movie42_MVVM" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="388" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -76,6 +76,13 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <connections>
+                                        <outlet property="titleLabel" destination="b5h-FS-g9z" id="oER-7W-gNe"/>
+                                    </connections>
+                                </collectionReusableView>
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wWN-DR-SWV">
+                                    <rect key="frame" x="0.0" y="231" width="388" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="Mae-yX-dHk" id="9VT-Gm-VBf"/>
@@ -86,16 +93,19 @@
                         <viewLayoutGuide key="safeArea" id="XAP-vq-ye3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="List" image="list.bullet" catalog="system" id="XXZ-Uz-qqr"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="Gkh-HT-Rwj" id="vTo-p7-p9d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lxw-xA-oya" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75.572519083969468" y="-54.225352112676056"/>
+            <point key="canvasLocation" x="378" y="-44"/>
         </scene>
     </scenes>
     <resources>
+        <image name="list.bullet" catalog="system" width="128" height="87"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
