@@ -131,7 +131,7 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
         \(dateString)
         \(reservation.numberOfTickets)명
         
-        - 영화 예매는 Move 42 -
+        - 영화 예매는 Movie 42 -
         """
             
             let alert = UIAlertController(title: "\(reservation.movieTitle)", message: message, preferredStyle: .alert)

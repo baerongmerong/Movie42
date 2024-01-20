@@ -85,16 +85,33 @@ class ReservationViewController: UIViewController {
             let numberOfTickets = reservationViewModel.selectedNumberOfTickets ?? 0
 
             let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy년 M월d일 h:mm a"
+            formatter.dateFormat = "yyyy년 M월d일"
 
             let dateString = formatter.string(from: date)
-            let message = "\(dateString) \(time)에 \(numberOfTickets)명 예매가 완료되었습니다."
+            let message = """
+            
+            \(dateString)
+            \(time)
+            \(numberOfTickets)명
 
-            let alert = UIAlertController(title: "예매 완료", message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-            alert.addAction(okAction)
+            Movie 42
+            이용해 주셔서 감사합니다.
+            """
 
-            present(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: """
+                                            \(movieTitle)
+                                            예매 완료
+                                            """,
+                        message: message, preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+                        // 경고 확인 버튼을 눌렀을 때 예매하기 페이지를 닫기
+                        self?.dismiss(animated: true, completion: nil)
+                    }
+                    alert.addAction(okAction)
+
+                    present(alert, animated: true, completion: nil)
+
         } else {
             // 예외 처리: 필요한 값이 없는 경우
             print("예매 정보가 부족합니다.")
