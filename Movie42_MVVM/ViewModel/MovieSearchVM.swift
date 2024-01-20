@@ -10,16 +10,16 @@ import Foundation
 class MovieSearchViewModel {
     private let movieService = MovieService()
     
-    // 화면 업데이트를 위한 클로저타입 프로퍼티
+    // 화면 업데이트를 위한 클로저 타입 프로퍼티
     var updateMovie: (() -> Void)?
     
-    // 검색 미리보기 업데이트를 위한 클로저타입 프로퍼티
+    // 검색 미리보기 업데이트를 위한 클로저 타입 프로퍼티
     var updatePreviewLabel: (() -> Void)?
     
-    // 전체 영화목록을 저장하는 배열
-    internal var allMovies: [Movie] = [] {
+    // 전체 영화 목록을 저장하는 Set
+    private var allMovies: Set<Movie> = [] {
         didSet {
-            // 전체 영화목록이 업데이트되면 화면을 업데이트하는 클로저 호출
+            // 전체 영화 목록이 업데이트되면 화면을 업데이트하는 클로저 호출
             updateMovie?()
         }
     }
@@ -42,40 +42,79 @@ class MovieSearchViewModel {
     
     // 초기화
     init() {
-        // 페이지 진입 NowPlay 영화데이터 불러옴
-        fetchData()
+        // 페이지 진입 NowPlay 데이터 불러옴
+        fetchData(for: .nowPlaying) {}
     }
     
-    // nowPlaying을 불러오는 API 호출
-    func fetchData() {
-        movieService.fetchMovies(for: .nowPlaying) { [weak self] result in
+    // 특정 카테고리에 대한 데이터를 불러오는 메서드
+    func fetchData(for category: MovieCategory, completion: @escaping () -> Void) {
+        movieService.fetchMovies(for: category) { [weak self] result in
             switch result {
             case .success(let movieResponse):
-                // 전체 영화 목록을 저장
-                self?.allMovies = movieResponse.results
-                // 초기에는 상영중인 데이터를 화면에 표시
-                self?.currentData = movieResponse.results
-                //print(movieResponse.results)
+                // 가져온 데이터를 전체 영화목록에 추가
+                // Set에 insert 메서드를 사용하여 중복을 허용하지 않게 추가
+                self?.allMovies.formUnion(movieResponse.results)
+                // 현재 화면에 표시할 데이터 업데이트
+                self?.currentData = Array(self?.allMovies ?? [])
             case .failure(let error):
                 // 에러 처리
                 print("Error MovieSearchVM fetchData: \(error.localizedDescription)")
             }
+            // 비동기 작업이 완료되면 completion 클로저 호출
+            completion()
         }
     }
 
     // 검색 메서드
-    func performSearch(query: String){
+    func performSearch(query: String) {
         if query.isEmpty {
-            // 검색어가 비어있으면 상영중인 기본 데이터를 보여줌
-            currentData = allMovies
+            // 검색어가 비어있으면 NowPlaying 데이터만 가져옴
+            fetchData(for: .nowPlaying) {
+                // 검색 미리보기 라벨 업데이트
+                self.updatePreviewTitles(with: query)
+                // 이전 미리보기 텍스트 초기화
+                self.previewTitles = []
+            }
         } else {
-            // 검색어에 해당하는 결과를 필터링하여 저장 (lowercased로 소문자 변환하여 필터링)
-            currentData = allMovies.filter {
-                $0.title.lowercased().contains(query.lowercased())
+            // 검색어가 있을 경우 모든 카테고리의 데이터를 가져옴
+            let group = DispatchGroup()
+            
+            group.enter()
+            fetchData(for: .nowPlaying) {
+                group.leave()
+            }
+            
+            group.enter()
+            fetchData(for: .popular) {
+                group.leave()
+            }
+            
+            group.enter()
+            fetchData(for: .topRated) {
+                group.leave()
+            }
+            
+            group.enter()
+            fetchData(for: .upcoming) {
+                group.leave()
+            }
+            
+            // 모든 데이터를 가져온 후에 필터링 및 업데이트
+            group.notify(queue: .main) {
+                self.currentData = self.allMovies.filter { movie in
+                    let titleMatch = movie.title.localizedCaseInsensitiveContains(query)
+                    let originalTitleMatch = movie.originalTitle.localizedCaseInsensitiveContains(query)
+                    
+                    // 한글인 경우 title로, 그 외의 경우 originalTitle로 검색
+                    return titleMatch || originalTitleMatch
+                }
+                
+                // 검색 미리보기 라벨 업데이트
+                self.updatePreviewTitles(with: query)
+                // 이전 미리보기 텍스트 초기화
+                self.previewTitles = []
             }
         }
-        // 검색 미리보기 라벨 업데이트
-        updatePreviewTitles(with: query)
     }
     
     // 현재 검색어에 대한 미리보기 텍스트를 가져오는 메서드
@@ -98,11 +137,20 @@ class MovieSearchViewModel {
     
     // 검색어에 대한 미리보기 텍스트를 생성하는 메서드
     private func generatePreviewText(for searchText: String) -> [String] {
-        // 여기에서 검색어에 대한 미리보기 텍스트를 생성하고 반환하는 로직을 작성
-        // 예를 들어, 현재 데이터에서 검색어를 포함하는 영화 제목들을 가져올 수 있습니다.
+        // 검색어에 대한 미리보기 텍스트를 생성하고 반환하는 로직
         let filteredTitles = allMovies
-            .filter { $0.title.lowercased().contains(searchText.lowercased()) }
-            .map { $0.title }
+            .compactMap { movie -> String? in
+                if searchText.isEmpty {
+                    // 검색어가 비어있다면 모든 제목 반환
+                    return movie.title
+                } else if searchText.isKorean {
+                    // 한글 입력일 때는 title 사용
+                    return movie.title.localizedCaseInsensitiveContains(searchText) ? movie.title : nil
+                } else {
+                    // 영어 입력일 때는 originalTitle 사용
+                    return movie.originalTitle.localizedCaseInsensitiveContains(searchText) ? movie.originalTitle : nil
+                }
+            }
 
         return filteredTitles
     }
@@ -116,5 +164,24 @@ class MovieSearchViewModel {
     func item(at index: Int) -> Movie {
         return currentData[index]
     }
-    
+}
+
+// 컬렉션에서 중복된 값을 제거하는 extension
+extension Array where Element: Equatable {
+    func unique(by keyPath: (Element) -> String) -> [Element] {
+        var uniqueElements: [Element] = []
+        for element in self {
+            if !uniqueElements.contains(where: { keyPath($0) == keyPath(element) }) {
+                uniqueElements.append(element)
+            }
+        }
+        return uniqueElements
+    }
+}
+
+extension String {
+    // 문자열이 한글을 포함하는지 확인하는 확장 프로퍼티
+    var isKorean: Bool {
+        return !self.isEmpty && self.range(of: "\\p{Hangul}", options: .regularExpression) != nil
+    }
 }

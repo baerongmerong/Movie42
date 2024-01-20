@@ -30,12 +30,13 @@ class MovieSearchViewController: UIViewController {
         
         // 초기데이터 로드
         setupReload()
-        movieSearchVM.fetchData()
+        movieSearchVM.fetchData(for: .nowPlaying) {}
         
         // 검색 미리보기 라벨에 탭 제스처 추가
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(previewLabelTapped))
         previewLabel.isUserInteractionEnabled = true
         previewLabel.addGestureRecognizer(tapGesture)
+        
     }
     
     private func setupReload() {
@@ -54,39 +55,69 @@ class MovieSearchViewController: UIViewController {
         }
     }
     
-    @objc func previewLabelTapped() {
+    @objc func previewLabelTapped(_ gesture: UITapGestureRecognizer) {
         // 검색 미리보기 라벨 클릭시 검색 수행
-        if let previewText = previewLabel.text {
-            print("검색어 클릭 \(previewText)")
-            movieSearchVM.performSearch(query: previewText)
+        let point = gesture.location(in: previewLabel)
+        if let tappedLabel = findTappedLabel(at: point) {
+            let searchText = tappedLabel.text ?? ""
+            movieSearchVM.performSearch(query: searchText)
         }
+    }
+    
+    // 특정 지점에서 탭된 라벨을 찾는 메서드
+    private func findTappedLabel(at point: CGPoint) -> UILabel? {
+        for subview in previewLabel.subviews {
+            if let label = subview as? UILabel, label.frame.contains(point) {
+                return label
+            }
+        }
+        return nil
     }
     
     // 미리보기 라벨 업데이트 메서드
     func updatePreviewLabel() {
         let previewTitles = movieSearchVM.getPreviewTitles()
-        let previewText = previewTitles.joined(separator: "\n")
-        previewLabel.text = previewText
-        
-        // 미리보기 라벨 배경색 설정
-        previewLabel.backgroundColor = UIColor.systemGray4
-        adjustPreviewLabelHeight()
-        print(previewTitles)
-    }
-    
-    // 미리보기 라벨의 높이를 동적으로 조절
-    private func adjustPreviewLabelHeight() {
-        // 미리보기 라벨의 높이를 동적으로 조절
-        let labelWidth = previewLabel.frame.width
-        
-        // numberOfLines를 0으로 설정하여 여러 줄을 허용
-        previewLabel.numberOfLines = 0
-        
-        // sizeThatFits에서 constrainedToSize를 사용하여 최대 높이를 설정
-        let maxSize = CGSize(width: labelWidth, height: CGFloat.greatestFiniteMagnitude)
-        let labelSize = previewLabel.sizeThatFits(maxSize)
-        
-        previewLabel.frame.size = CGSize(width: labelWidth, height: labelSize.height)
+
+        // 검색 결과가 없으면 배경색 제거
+        previewLabel.backgroundColor = previewTitles.isEmpty ? nil : UIColor.systemGray
+
+        // 이전에 미리보기 라벨에 추가된 뷰들을 제거
+        for subview in previewLabel.subviews {
+            subview.removeFromSuperview()
+        }
+
+        var previousLabel: UILabel?
+
+        for title in previewTitles {
+            // 라벨 생성
+            let label = UILabel()
+            label.text = title
+            label.textColor = UIColor.black
+            label.isUserInteractionEnabled = true
+
+            // 라벨을 미리보기 라벨에 추가
+            previewLabel.addSubview(label)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.backgroundColor = UIColor.systemGray
+            label.layer.borderWidth = 0.5
+            label.layer.borderColor = UIColor.black.cgColor
+
+            NSLayoutConstraint.activate([
+                label.leadingAnchor.constraint(equalTo: previewLabel.leadingAnchor),
+                label.trailingAnchor.constraint(equalTo: previewLabel.trailingAnchor),
+                label.heightAnchor.constraint(equalToConstant: 30.0) // 라벨의 높이 조절
+            ])
+
+            if let previousLabel = previousLabel {
+                label.topAnchor.constraint(equalTo: previousLabel.bottomAnchor).isActive = true
+            } else {
+                // 첫 번째 라벨의 경우 previewLabel.topAnchor에 연결
+                label.topAnchor.constraint(equalTo: previewLabel.topAnchor).isActive = true
+            }
+
+            // previousLabel 업데이트
+            previousLabel = label
+        }
     }
     
 }
@@ -127,7 +158,6 @@ extension MovieSearchViewController: UICollectionViewDelegate, UICollectionViewD
         
         // 특정 인덱스의 아이템을 가져와 셀에 설정
         let movie = movieSearchVM.item(at: indexPath.item)
-        //print("MovieSearchVC movieSearchVM item : \(movie)")
         cell.configure(with: movie)
         
         return cell
@@ -141,9 +171,7 @@ extension MovieSearchViewController: UICollectionViewDelegate, UICollectionViewD
         // 셀을 선택했을 때의 동작
         let selectedMovie = movieSearchVM.item(at: indexPath.item)
         // 상세 페이지로 이동하거나 다른 동작 수행
-        
     }
-    
     
 }
 
@@ -165,4 +193,5 @@ extension MovieSearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 4.0, left: 1.0, bottom: 4.0, right: 1.0)
     }
+    
 }
