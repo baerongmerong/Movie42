@@ -1,3 +1,10 @@
+//
+//  MovieCollectionViewCell.swift
+//  TestProject
+//
+//  Created by mirae on 1/18/24.
+//
+
 import UIKit
 
 class MovieCollectionViewCell: UICollectionViewCell {
@@ -22,10 +29,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
         // Movie 객체에서 필요한 데이터를 가져와 UI 업데이트
         titleLabel.text = movie.title
 
-        // 포스터 이미지를 비동기적으로 가져와 설정
-        if let posterURL = URL(string: "https://image.tmdb.org/t/p/w500" + movie.posterPath) {
-            print("MovieCollectionViewCell configure \(movie.title)")
-            
+        // 포스터 이미지를 가져와 설정
+        if let posterURL = movie.posterURL {
             // URLSession을 사용하여 비동기적으로 이미지 다운로드
             URLSession.shared.dataTask(with: posterURL) { (data, response, error) in
                 if let data = data, let image = UIImage(data: data) {
