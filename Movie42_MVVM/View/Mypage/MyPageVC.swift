@@ -11,6 +11,7 @@ class MyPageViewController : UIViewController {
 
     override func viewDidLoad() {
             super.viewDidLoad()
+        userImage.image = UIImage(named: "cat")
             setUpBinders()
             updateUI()
         }
@@ -27,7 +28,7 @@ class MyPageViewController : UIViewController {
     private func updateUI() {
         if let loggedInUser = UserDefaultManager.shared.getLoggedInUser() {
             id.text = "ID: \(loggedInUser.userid)"
-            nickname.text = "Nickname: \(loggedInUser.nickname)"
+            nickname.text = "닉네임: \(loggedInUser.nickname)"
         }
     }
     
@@ -36,7 +37,7 @@ class MyPageViewController : UIViewController {
         showChangeUserInfoAlert()
     }
     private func showChangeUserInfoAlert() {
-        let alert = UIAlertController(title: "사용자 정보 변경", message: "새로운 ID와 닉네임을 입력하세요", preferredStyle: .alert)
+        let alert = UIAlertController(title: "사용자 정보 수정", message: "새로운 ID와 닉네임을 입력하세요", preferredStyle: .alert)
 
         alert.addTextField { textField in
             textField.placeholder = "새로운 ID"
@@ -53,7 +54,7 @@ class MyPageViewController : UIViewController {
                let newNickname = alert.textFields?.last?.text {
                 // 뷰 모델에 업데이트 요청
                 self.viewModel.updateUser(newID: newID, newNickname: newNickname)
-                self.nickname.text = "Nickname: \(newNickname)"
+                self.nickname.text = "닉네임: \(newNickname)"
                 self.id.text = "ID: \(newID)"
                 }
             }
