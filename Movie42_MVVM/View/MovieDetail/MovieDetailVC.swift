@@ -86,4 +86,12 @@ class MovieDetailViewController: UIViewController {
                  movieDetailViewModel.setHeartSelectedState(sender.isSelected, movie: selectedMovie)
                  print("heartButtonTapped - isSelected: \(sender.isSelected)") // 디버깅
              }
-         }
+    
+    @IBAction func registerBtnTapped() {
+        let storyboard = UIStoryboard(name: "RegisterView", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ReservationViewController") as UIViewController
+        
+        vc.modalPresentationStyle = .popover
+        present(vc, animated: false, completion: nil)
+    }
+}
