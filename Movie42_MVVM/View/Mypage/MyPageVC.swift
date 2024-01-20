@@ -3,9 +3,11 @@ import UIKit
 class MyPageViewController : UIViewController {
     
     @IBOutlet weak var userImage: UIImageView!
-    
     @IBOutlet weak var nickname: UILabel!
     @IBOutlet weak var id: UILabel!
+    @IBOutlet weak var movieTV: UITableView!
+    
+    var user: User?
     
     private let viewModel = MyPageViewModel()
 
@@ -14,6 +16,14 @@ class MyPageViewController : UIViewController {
         userImage.image = UIImage(named: "cat")
             setUpBinders()
             updateUI()
+        
+        movieTV.dataSource = self
+        movieTV.delegate = self
+        
+        if let loggedInUser = UserDefaultManager.shared.getLoggedInUser() {
+                    user = loggedInUser
+                    movieTV.reloadData() // 테이블 뷰 업데이트
+                }
         }
 
     private func setUpBinders() {
@@ -68,5 +78,20 @@ class MyPageViewController : UIViewController {
     }
 }
     
+extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
+    
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return user?.reservations.count ?? 0
+        }
 
-
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "reservationCell", for: indexPath)
+            if let reservation = user?.reservations[indexPath.row] {
+                // 셀에 예약 정보를 표시
+                cell.textLabel?.text = " \(reservation.movieTitle) | \(reservation.numberOfTickets)명"
+            }
+            return cell
+        }
+    
+    
+}
