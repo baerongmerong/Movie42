@@ -12,6 +12,7 @@ struct Reservation: Codable {
     var date: Date
     var time: String
     var numberOfTickets: Int 
+    
 
     init(movieTitle: String, date: Date, time: String, numberOfTickets: Int) {
         self.movieTitle = movieTitle

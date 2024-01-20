@@ -56,13 +56,12 @@ class MovieDetailViewModel {
             // 찜한 영화를 사용자 정보에 추가 또는 제거
             if isSelected {
                 // 이미 찜 목록에 있는지 확인 후 없으면 추가
-                if !updatedUser.reservations.contains(where: { $0.movieTitle == movie.title }) {
-                    let reservation = Reservation(movieTitle: movie.title, date: Date(), time: "", numberOfTickets: 0)
-                    updatedUser.reservations.append(reservation)
+                if !updatedUser.favoriteMovies.contains(where: { $0.title == movie.title }) {
+                    updatedUser.favoriteMovies.append(movie)
                 }
             } else {
                 // 이미 찜한 영화를 취소한 경우, 해당 영화를 찜 목록에서 제거
-                updatedUser.reservations.removeAll { $0.movieTitle == movie.title }
+                updatedUser.favoriteMovies.removeAll { $0.title == movie.title }
             }
 
             // 사용자 정보 업데이트
