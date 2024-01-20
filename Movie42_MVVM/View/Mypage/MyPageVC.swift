@@ -140,6 +140,9 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
             
             present(alert, animated: true, completion: nil)
         }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateUI()
+    }
     
 }
