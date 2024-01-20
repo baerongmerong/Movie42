@@ -43,7 +43,7 @@ class UserDefaultManager {
         return nil
     }
         func updateLoggedInUser(_ user: User) {
-            if var users = userDefaults.data(forKey: "users"),
+            if let users = userDefaults.data(forKey: "users"),
                var decodedData = try? JSONDecoder().decode([User].self, from: users) {
                 
                 if let index = decodedData.firstIndex(where: { $0.userid == user.userid }) {

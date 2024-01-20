@@ -56,7 +56,6 @@ class MovieDetailViewController: UIViewController {
         private func updateUI() {
         // 영화 제목 설정
         movieTitleLabel.text = movieDetailViewModel.movieTitle
-            
         // 영화 포스터 이미지 설정
         if let posterURL = movieDetailViewModel.moviePosterURL {
         // 비동기적으로 이미지를 로드하여 설정
@@ -88,10 +87,14 @@ class MovieDetailViewController: UIViewController {
              }
     
     @IBAction func registerBtnTapped() {
+        let select = self.selectedMovie
         let storyboard = UIStoryboard(name: "RegisterView", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "ReservationViewController") as UIViewController
-        
-        vc.modalPresentationStyle = .popover
-        present(vc, animated: false, completion: nil)
+        if let vc = storyboard.instantiateViewController(withIdentifier: "ReservationViewController") as? ReservationViewController {
+            vc.selectedMovie = select
+            
+            // 화면을 modal로 표시
+            vc.modalPresentationStyle = .automatic
+            present(vc, animated: false, completion: nil)
+        }
     }
 }
