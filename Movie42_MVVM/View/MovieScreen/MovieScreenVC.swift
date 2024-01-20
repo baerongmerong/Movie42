@@ -6,83 +6,71 @@ class MovieScreenViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     private let movieScreenVM = MovieScreenVM()
-       
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.dataSource = self
         collectionView.delegate = self
-
         
-        movieScreenVM.fetchData()
-        movieScreenVM.fetchData2()
-        movieScreenVM.fetchData3()
-        movieScreenVM.fetchData4()
-
+        setupReload()
+        movieScreenVM.fetchData(for: .nowPlaying){}
+        movieScreenVM.fetchData(for: .popular) {}
+        movieScreenVM.fetchData(for: .topRated) {}
+        movieScreenVM.fetchData(for: .upcoming) {}
+        
+    }
+    
+    private func setupReload() {
+        movieScreenVM.updateMovie = {
+            [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+                
+            }
+        }
     }
 }
 
-extension MovieScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MovieScreenViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 4
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
-            return movieScreenVM.itemsCount()
-        } else if section == 1 {
-            return movieScreenVM.itemsCount()
-        }
-        else if section == 2{
-            return movieScreenVM.itemsCount()
-        }
-        else {
-            return movieScreenVM.itemsCount()
+        // 각 섹션에 따른 데이터 개수 반환
+        switch section {
+        case 0:
+            return movieScreenVM.itemsCount(for: .nowPlaying)
+        case 1:
+            return movieScreenVM.itemsCount(for: .popular)
+        case 2:
+            return movieScreenVM.itemsCount(for: .topRated)
+        case 3:
+            return movieScreenVM.itemsCount(for: .upcoming)
+        default:
+            return 0
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ScreenCollectionViewCell
-        if indexPath.section == 0 {
-            let movie = movieScreenVM.item(at: indexPath.item)
-            cell.configure(with: movie)
-        } else if indexPath.section == 1 {
-            let movie = movieScreenVM.item(at: indexPath.item)
-            cell.configure(with: movie)
-        } else if indexPath.section == 2 {
-            let movie = movieScreenVM.item(at: indexPath.item)
-            cell.configure(with: movie)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "YourCellIdentifier", for: indexPath) as! YourCustomCell
+
+        // 각 섹션에 따른 데이터 설정
+        switch indexPath.section {
+        case 0:
+            cell.configure(with: movieScreenVM.item(at: indexPath.item, for: .nowPlaying))
+        case 1:
+            cell.configure(with: movieScreenVM.item(at: indexPath.item, for: .popular))
+        case 2:
+            cell.configure(with: movieScreenVM.item(at: indexPath.item, for: .topRated))
+        case 3:
+            cell.configure(with: movieScreenVM.item(at: indexPath.item, for: .upcoming))
+        default:
+            break
         }
-        else {
-            let movie = movieScreenVM.item(at: indexPath.item)
-            cell.configure(with: movie)
-        }
+
         return cell
     }
 }
-//func createFlowLayout() -> UICollectionViewFlowLayout {
-//    
-//    let flowlayout = UICollectionViewFlowLayout()
-//    flowlayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//    flowlayout.minimumLineSpacing = 10
-//    flowlayout.minimumInteritemSpacing = 10
-//    flowlayout.itemSize = CGSize(width: 10, height: 10)
-//    flowlayout.scrollDirection = .horizontal
-//    
-//    return flowlayout
-//}
-
-//extension MovieScreenViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let cellWidth = collectionView.frame.width - 80 // 한 줄에 1개씩
-//        let cellHeight = view.frame.height
-//        return CGSize(width: cellWidth, height: cellHeight)
-//    }
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 5
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 5
-//    }
-//}
