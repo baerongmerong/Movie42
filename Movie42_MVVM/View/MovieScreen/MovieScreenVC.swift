@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class MovieScreenViewController: UIViewController {
+class MovieScreenViewController: UIViewController, UICollectionViewDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -32,7 +32,7 @@ class MovieScreenViewController: UIViewController {
     }
 }
 
-extension MovieScreenViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension MovieScreenViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 4
@@ -55,18 +55,22 @@ extension MovieScreenViewController: UICollectionViewDataSource, UICollectionVie
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "YourCellIdentifier", for: indexPath) as! YourCustomCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ScreenCollectionViewCell
 
         // 각 섹션에 따른 데이터 설정
         switch indexPath.section {
         case 0:
-            cell.configure(with: movieScreenVM.item(at: indexPath.item, for: .nowPlaying))
+            let movie = movieScreenVM.item(at: indexPath.item)
+            cell.configure(with: movie)
         case 1:
-            cell.configure(with: movieScreenVM.item(at: indexPath.item, for: .popular))
+            let movie = movieScreenVM.item(at: indexPath.item)
+            cell.configure(with: movie)
         case 2:
-            cell.configure(with: movieScreenVM.item(at: indexPath.item, for: .topRated))
+            let movie = movieScreenVM.item(at: indexPath.item)
+            cell.configure(with: movie)
         case 3:
-            cell.configure(with: movieScreenVM.item(at: indexPath.item, for: .upcoming))
+            let movie = movieScreenVM.item(at: indexPath.item)
+            cell.configure(with: movie)
         default:
             break
         }
@@ -74,3 +78,25 @@ extension MovieScreenViewController: UICollectionViewDataSource, UICollectionVie
         return cell
     }
 }
+
+//extension MovieScreenViewController: UICollectionViewDelegateFlowLayout {
+//
+//    // 각 섹션의 inset을 설정하여 좌에서 우로 슬라이딩되도록 함
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        let edgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+//        return edgeInsets
+//    }
+//
+//    // 각 섹션의 크기를 설정하여 좌에서 우로 슬라이딩되도록 함
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let collectionViewWidth = collectionView.bounds.width
+//        let itemWidth = collectionViewWidth - 30 // 좌우 여백 15씩
+//        let itemHeight = collectionView.bounds.height - 20 // 상하 여백 10씩
+//        return CGSize(width: itemWidth, height: itemHeight)
+//    }
+//
+//    // 각 섹션 간의 최소 간격을 설정하여 좌에서 우로 슬라이딩되도록 함
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 15
+//    }
+//}

@@ -64,7 +64,7 @@ class MovieScreenVM {
                 self?.currentData = self?.allMovies ?? []
             case .failure(let error):
                 // 에러 처리
-                print("Error MovieSearchVM fetchData: \(error.localizedDescription)")
+                print("Error MovieScreenVM fetchData: \(error.localizedDescription)")
             }
 
             completion()
