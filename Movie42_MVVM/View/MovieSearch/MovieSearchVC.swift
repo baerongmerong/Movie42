@@ -17,6 +17,7 @@ class MovieSearchViewController: UIViewController {
         // 검색 버튼이 눌렸을 때 검색 수행
         movieSearchVM.performSearch(query: searchTextField.text ?? "")
     }
+
     
     // MovieSearchViewModel 인스턴스 생성
     private let movieSearchVM = MovieSearchViewModel()
@@ -144,6 +145,15 @@ extension MovieSearchViewController: UICollectionViewDelegate, UICollectionViewD
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard(name: "MovieDetailView", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as UIViewController
+        
+        vc.modalPresentationStyle = .automatic
+        present(vc, animated: false, completion: nil)
+    }
+    
     
 }
 
@@ -166,3 +176,4 @@ extension MovieSearchViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 4.0, left: 1.0, bottom: 4.0, right: 1.0)
     }
 }
+
