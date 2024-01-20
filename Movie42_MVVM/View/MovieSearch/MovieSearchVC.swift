@@ -142,19 +142,21 @@ extension MovieSearchViewController: UICollectionViewDelegate, UICollectionViewD
         // 셀을 선택했을 때의 동작
         let selectedMovie = movieSearchVM.item(at: indexPath.item)
         // 상세 페이지로 이동하거나 다른 동작 수행
+        showDetailView(with: selectedMovie)
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
+    func showDetailView(with movie: Movie) {
         let storyboard = UIStoryboard(name: "MovieDetailView", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as UIViewController
-        
-        vc.modalPresentationStyle = .automatic
-        present(vc, animated: false, completion: nil)
+        if let detailViewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController {
+            // MovieDetailViewController의 프로퍼티에 직접 할당
+            detailViewController.selectedMovie = movie
+            
+            // 화면을 modal로 표시
+            detailViewController.modalPresentationStyle = .automatic
+            present(detailViewController, animated: false, completion: nil)
+        }
     }
-    
-    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
