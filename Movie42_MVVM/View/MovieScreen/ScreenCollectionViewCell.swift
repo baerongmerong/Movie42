@@ -35,3 +35,8 @@ class ScreenCollectionViewCell: UICollectionViewCell {
     titleLabel.text = nil
   }
 }
+
+class CollectionReusableView : UICollectionReusableView {
+    @IBOutlet weak var titleLabel: UILabel!
+    
+}

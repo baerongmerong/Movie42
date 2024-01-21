@@ -37,6 +37,31 @@ extension MovieScreenViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 4
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! CollectionReusableView
+
+            // Set the title based on the section
+            switch indexPath.section {
+            case 0:
+                header.titleLabel.text = "Now Playing"
+            case 1:
+                header.titleLabel.text = "Popular"
+            case 2:
+                header.titleLabel.text = "Top Rated"
+            case 3:
+                header.titleLabel.text = "Upcoming"
+            default:
+                break
+            }
+
+            return header
+        } else {
+            return UICollectionReusableView()
+        }
+    }
+
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // 각 섹션에 따른 데이터 개수 반환
