@@ -35,7 +35,7 @@ class ReservationViewController: UIViewController {
         reservationViewModel.saveReservation(with: UserDefaultManager.shared.getLoggedInUser(), with: selectedMovie, with: dateDatePicker.date)
         updateUI()
         
-//        Mypage.movieTV?.reloadData()
+        Mypage.movieTV?.reloadData()
         
         // 예매 완료 알림창 표시
         showReservationCompletionAlert()        

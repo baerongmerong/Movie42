@@ -16,14 +16,14 @@ class MyPageViewController : UIViewController {
         userImage.image = UIImage(named: "cat")
             setUpBinders()
             updateUI()
-        
+                
         movieTV.dataSource = self
         movieTV.delegate = self
         
         if let loggedInUser = UserDefaultManager.shared.getLoggedInUser() {
                     user = loggedInUser
      
-                    movieTV.reloadData() // 테이블 뷰 업데이트
+            self.movieTV.reloadData() // 테이블 뷰 업데이트
                 }
         }
 

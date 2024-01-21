@@ -109,3 +109,38 @@ extension MovieScreenViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
+extension MovieScreenViewController {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let movieCategory: MovieCategory
+        switch indexPath.section {
+        case 0:
+            movieCategory = .nowPlaying
+        case 1:
+            movieCategory = .popular
+        case 2:
+            movieCategory = .topRated
+        case 3:
+            movieCategory = .upcoming
+        default:
+            return
+        }
+
+        let selectedMovie = movieScreenVM.item(at: indexPath.item, for: movieCategory)
+
+        showDetailView(with: selectedMovie)
+    }
+
+    func showDetailView(with movie: Movie) {
+        let storyboard = UIStoryboard(name: "MovieDetailView", bundle: nil)
+        if let detailViewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController {
+            // MovieDetailViewController의 프로퍼티에 직접 할당
+            detailViewController.selectedMovie = movie
+            
+            // 화면을 modal로 표시
+            detailViewController.modalPresentationStyle = .automatic
+            present(detailViewController, animated: false, completion: nil)
+        }
+    }
+}
+

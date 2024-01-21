@@ -55,7 +55,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="darkpink"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="확인"/>
+                                <buttonConfiguration key="configuration" style="filled" title="확인">
+                                    <color key="baseBackgroundColor" name="darkpink"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="signupBtnClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="TOh-Hn-ihT"/>
                                 </connections>
