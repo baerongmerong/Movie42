@@ -1,111 +1,116 @@
+//
+//  MovieScreenViewController.swift
+//  Movie42_MVVM
+//
+//  Created by mirae on 1/21/24.
+//
 import Foundation
 import UIKit
 
-class MovieScreenViewController: UIViewController, UICollectionViewDelegate {
+class MovieScreenViewController: UIViewController{
+    @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var collectionView: UICollectionView!
-    
-    private let movieScreenVM = MovieScreenVM()
-    
+    private let movieScreenVM = MovieScreenViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        setupTableView()
+        setupViewModel()
+        fetchDataForAllCategories()
         
-        setupReload()
-        movieScreenVM.fetchData(for: .nowPlaying) {}
-        movieScreenVM.fetchData(for: .popular) {}
-        movieScreenVM.fetchData(for: .topRated) {}
-        movieScreenVM.fetchData(for: .upcoming) {}
-        
+        tableView.separatorStyle = .none
     }
-    
-    private func setupReload() {
-        movieScreenVM.updateMovie = {
-            [weak self] in
+
+    private func setupTableView() {
+        tableView.register(MovieSreenCollectionViewTableCell.nib(), forCellReuseIdentifier: MovieSreenCollectionViewTableCell.identifier)
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+
+    private func setupViewModel() {
+        movieScreenVM.updateMovie = { [weak self] in
             DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-                
+                self?.tableView.reloadData()
             }
         }
     }
+
+    private func fetchDataForAllCategories() {
+        movieScreenVM.fetchData(for: .nowPlaying)
+        movieScreenVM.fetchData(for: .popular)
+        movieScreenVM.fetchData(for: .topRated)
+        movieScreenVM.fetchData(for: .upcoming)
+    }
+    
+    
+//    func didSelect(movie: Movie, category: MovieCategory) {
+//        let storyboard = UIStoryboard(name: "MovieDetailView", bundle: nil)
+//        if let detailViewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController {
+//            detailViewController.selectedMovie = movie
+//            detailViewController.modalPresentationStyle = .automatic
+//            present(detailViewController, animated: false, completion: nil)
+//        }
+//    }
 }
 
-extension MovieScreenViewController: UICollectionViewDataSource {
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+extension MovieScreenViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // 카테고리별로 섹션을 나눔
         return 4
     }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! CollectionReusableView
 
-            // Set the title based on the section
-            switch indexPath.section {
-            case 0:
-                header.titleLabel.text = "Now Playing"
-            case 1:
-                header.titleLabel.text = "Popular"
-            case 2:
-                header.titleLabel.text = "Top Rated"
-            case 3:
-                header.titleLabel.text = "Upcoming"
-            default:
-                break
-            }
-
-            return header
-        } else {
-            return UICollectionReusableView()
-        }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // 각 섹션에 대한 영화 아이템 개수 반환
+        return 1
     }
 
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // 각 섹션에 따른 데이터 개수 반환
-        switch section {
-        case 0:
-            return movieScreenVM.itemsCount(for: .nowPlaying)
-        case 1:
-            return movieScreenVM.itemsCount(for: .popular)
-        case 2:
-            return movieScreenVM.itemsCount(for: .topRated)
-        case 3:
-            return movieScreenVM.itemsCount(for: .upcoming)
-        default:
-            return 0
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MovieSreenCollectionViewTableCell.identifier, for: indexPath) as! MovieSreenCollectionViewTableCell
+        let category = getCategory(for: indexPath.section)
+        if let movies = movieScreenVM.movies(for: category) {
+            cell.configure(category: category, movies: movies)
         }
-    }
-    
-
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ScreenCollectionViewCell
-
-        // 각 섹션에 따른 데이터 설정
-        switch indexPath.section {
-        case 0:
-            let movie = movieScreenVM.item(at: indexPath.item, for: .nowPlaying)
-            cell.configure(with: movie)
-            print(1)
-        case 1:
-            let movie = movieScreenVM.item(at: indexPath.item, for: .popular)
-            cell.configure(with: movie)
-            print(2)
-        case 2:
-            let movie = movieScreenVM.item(at: indexPath.item, for: .topRated)
-            cell.configure(with: movie)
-            print(3)
-        case 3:
-            let movie = movieScreenVM.item(at: indexPath.item, for: .upcoming)
-            cell.configure(with: movie)
-            print(4)
-        default:
-            break
-        }
-
         return cell
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 250
+    }
+
+    private func getCategory(for section: Int) -> MovieCategory {
+        // 섹션에 대응하는 카테고리를 반환
+        switch section {
+        case 0:
+            return .nowPlaying
+        case 1:
+            return .popular
+        case 2:
+            return .topRated
+        case 3:
+            return .upcoming
+        default:
+            fatalError("Invalid section")
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30.0 // 헤더의 높이를 원하는 값으로 설정
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        //headerView.backgroundColor = .lightGray
+        
+        let label = UILabel()
+        label.text = "\(getCategory(for: section))"
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+        label.frame = CGRect(x: 10, y: 0, width: tableView.bounds.size.width - 16, height: 30)
+        headerView.addSubview(label)
+        
+        return headerView
+    }
+    
+    
 }

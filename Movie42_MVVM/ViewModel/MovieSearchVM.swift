@@ -2,7 +2,7 @@
 //  MovieSearchVM.swift
 //  Movie42_MVVM
 //
-//  Created by Bae on 1/17/24.
+//  Created by mirae on 1/17/24.
 //
 
 import Foundation
@@ -42,8 +42,8 @@ class MovieSearchViewModel {
     
     // 초기화
     init() {
-        // 페이지 진입 NowPlay 데이터 불러옴
-        fetchData(for: .nowPlaying) {}
+        // 페이지 진입 topRated 데이터 불러옴
+        fetchData(for: .topRated) {}
     }
     
     // 특정 카테고리에 대한 데이터를 불러오는 메서드
@@ -68,8 +68,8 @@ class MovieSearchViewModel {
     // 검색 메서드
     func performSearch(query: String) {
         if query.isEmpty {
-            // 검색어가 비어있으면 NowPlaying 데이터만 가져옴
-            fetchData(for: .nowPlaying) {
+            // 검색어가 비어있으면 topRated 데이터만 가져옴
+            fetchData(for: .topRated) {
                 // 검색 미리보기 라벨 업데이트
                 self.updatePreviewTitles(with: query)
                 // 이전 미리보기 텍스트 초기화

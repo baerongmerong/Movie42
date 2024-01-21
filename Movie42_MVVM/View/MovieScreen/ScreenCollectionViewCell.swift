@@ -11,7 +11,7 @@ class ScreenCollectionViewCell: UICollectionViewCell {
       titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
       
       // posterImageView 설정
-//      posterImageView.contentMode = .scaleAspectFill // 이미지를 셀 내부에 채우면서 일부가 잘림
+      posterImageView.contentMode = .scaleAspectFill // 이미지를 셀 내부에 채우면서 일부가 잘림
       posterImageView.clipsToBounds = true // 필요한 경우 이미지가 셀 밖으로 나가지 않도록 클리핑
       
   }
@@ -35,7 +35,7 @@ class ScreenCollectionViewCell: UICollectionViewCell {
     
   override func prepareForReuse() {
     super.prepareForReuse()
-    // 셀이 재사용되기 전에 초기화 작업을 수행할 수 있습니다.
+    // 셀이 재사용되기 전에 초기화 작업을 수행
     posterImageView.image = nil
     titleLabel.text = nil
   }

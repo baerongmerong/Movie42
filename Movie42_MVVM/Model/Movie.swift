@@ -2,7 +2,7 @@
 //  Movie.swift
 //  Movie42_MVVM
 //
-//  Created by Bae on 1/16/24.
+//  Created by mirae on 1/16/24.
 //
 
 import Foundation

@@ -1,6 +1,5 @@
 //
 //  MovieCollectionViewCell.swift
-//  TestProject
 //
 //  Created by mirae on 1/18/24.
 //
