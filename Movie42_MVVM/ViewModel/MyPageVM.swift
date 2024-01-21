@@ -16,4 +16,5 @@ class MyPageViewModel {
                 change.value = "사용자 정보가 업데이트되었습니다."
             }
         }
+    
 }

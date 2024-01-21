@@ -88,6 +88,7 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
               return user?.favoriteMovies.count ?? 0
           }
       }
+    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reservationCell", for: indexPath)
@@ -131,7 +132,7 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
         \(dateString)
         \(reservation.numberOfTickets)명
         
-        - 영화 예매는 Movie 42 -
+        - 영화 예매는 Move 42 -
         """
             
             let alert = UIAlertController(title: "\(reservation.movieTitle)", message: message, preferredStyle: .alert)
@@ -144,5 +145,4 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
         super.viewWillAppear(animated)
         updateUI()
     }
-    
 }
