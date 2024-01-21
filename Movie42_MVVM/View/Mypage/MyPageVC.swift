@@ -22,6 +22,7 @@ class MyPageViewController : UIViewController {
         
         if let loggedInUser = UserDefaultManager.shared.getLoggedInUser() {
                     user = loggedInUser
+     
                     movieTV.reloadData() // 테이블 뷰 업데이트
                 }
         }
@@ -80,18 +81,68 @@ class MyPageViewController : UIViewController {
     
 extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
     
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return user?.reservations.count ?? 0
-        }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+          if section == 0 {
+              return user?.reservations.count ?? 0
+          } else {
+              return user?.favoriteMovies.count ?? 0
+          }
+      }
+    
 
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "reservationCell", for: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reservationCell", for: indexPath)
+        
+        if indexPath.section == 0 {
+            // 예매 정보 표시
             if let reservation = user?.reservations[indexPath.row] {
-                // 셀에 예약 정보를 표시
-                cell.textLabel?.text = " \(reservation.movieTitle) | \(reservation.numberOfTickets)명"
+                cell.textLabel?.text = "\(reservation.movieTitle) | \(reservation.numberOfTickets)명"
             }
-            return cell
+        } else if indexPath.section == 1 {
+            // 찜한 영화 표시
+            if let favoriteMovie = user?.favoriteMovies[indexPath.row] {
+                cell.textLabel?.text = favoriteMovie.title
+            }
         }
-    
-    
+        
+        return cell
+      }
+
+      func numberOfSections(in tableView: UITableView) -> Int {
+          return 2 // 두 섹션: 0은 예매 정보, 1은 찜한 영화
+      }
+
+      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+          return section == 0 ? "내가 예매한 영화" : "내가 찜한 영화"
+      }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         if let reservation = user?.reservations[indexPath.row] {
+             showReservationDetailsAlert(for: reservation)
+         }
+     }
+
+    private func showReservationDetailsAlert(for reservation: Reservation) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy년 M월d일 h:mm a"
+            
+            let dateString = formatter.string(from: reservation.date)
+            
+            let message = """
+        
+        \(dateString)
+        \(reservation.numberOfTickets)명
+        
+        - 영화 예매는 Move 42 -
+        """
+            
+            let alert = UIAlertController(title: "\(reservation.movieTitle)", message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            present(alert, animated: true, completion: nil)
+        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateUI()
+    }
 }
