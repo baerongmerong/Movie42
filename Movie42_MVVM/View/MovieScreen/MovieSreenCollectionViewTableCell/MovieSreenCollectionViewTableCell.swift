@@ -7,18 +7,15 @@
 
 import UIKit
 
-// MovieSreenCollectionViewTableCell에서 델리게이트 프로토콜 정의
-protocol MovieSreenCollectionViewTableCellDelegate: AnyObject {
-    func didSelect(movie: Movie, category: MovieCategory)
-}
-
 class MovieSreenCollectionViewTableCell: UITableViewCell {
     @IBOutlet private weak var collectionView: UICollectionView!
     
-    weak var delegate: MovieSreenCollectionViewTableCellDelegate?
     private var category: MovieCategory?
     private var movies: [Movie] = []
     private let movieScreenVM = MovieScreenViewModel()
+    
+    // 셀클릭 이벤트될 때 상세페이지로 이동하기위한 클로저
+    var didSelectMovie: ((Movie) -> Void)?
 
     static let identifier = "MovieSreenCollectionViewTableCell"
 
@@ -33,9 +30,11 @@ class MovieSreenCollectionViewTableCell: UITableViewCell {
         collectionView.dataSource = self
     }
 
-    func configure(category: MovieCategory, movies: [Movie]) {
+    // 셀에 카테고리와 영화 데이터 설정 및 클로저 할당
+    func configure(category: MovieCategory, movies: [Movie], didSelectMovie: @escaping (Movie) -> Void) {
         self.category = category
         self.movies = movies
+        self.didSelectMovie = didSelectMovie
         collectionView.reloadData() // collectionView를 새로고침하여 데이터를 반영
     }
 }
@@ -71,21 +70,16 @@ extension MovieSreenCollectionViewTableCell: UICollectionViewDataSource {
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let selectedMovie = movieScreenVM.item(at: indexPath.item)
-//        showDetailView(with: selectedMovie)
-//    }
-//    
-//    func showDetailView(with movie: Movie?) {
-//        guard let movie = movie else {
-//            return
-//        }
-//        
-//        let storyboard = UIStoryboard(name: "MovieDetailView", bundle: nil)
-//        if let detailViewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController {
-//            detailViewController.selectedMovie = movie
-//            detailViewController.modalPresentationStyle = .automatic
-//            present(detailViewController, animated: false, completion: nil)
-//        }
-//    }
+    // 상세페이지 클릭 이벤트
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let selectedMovie = movies[safe: indexPath.item] {
+            didSelectMovie?(selectedMovie)
+        }
+    }
+}
+
+extension Array {
+    subscript(safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
 }

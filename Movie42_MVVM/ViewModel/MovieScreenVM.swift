@@ -20,8 +20,7 @@ class MovieScreenViewModel {
             case .success(let movieResponse):
                 // 가져온 영화를 딕셔너리에 저장
                 self?.movieDict[category] = movieResponse.results
-                if let movies = self?.movieDict[category] {
-                }
+                if let movies = self?.movieDict[category] {}
                 // 업데이트가 필요한 경우 클로저 호출
                 self?.updateMovie?()
             case .failure(let error):
@@ -44,4 +43,6 @@ class MovieScreenViewModel {
     func movies(for category: MovieCategory) -> [Movie]? {
         return movieDict[category]
     }
+    
+    
 }
