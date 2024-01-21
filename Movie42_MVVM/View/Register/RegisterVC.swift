@@ -3,6 +3,7 @@
 import UIKit
 
 class ReservationViewController: UIViewController {
+    var Mypage = MyPageViewController()
     var reservationViewModel = ReservationViewModel()
     
     @IBOutlet weak var movieTitleLabel: UILabel!
@@ -33,6 +34,8 @@ class ReservationViewController: UIViewController {
         print("Book button tapped") // 디버깅
         reservationViewModel.saveReservation(with: UserDefaultManager.shared.getLoggedInUser(), with: selectedMovie, with: dateDatePicker.date)
         updateUI()
+        
+//        Mypage.movieTV?.reloadData()
         
         // 예매 완료 알림창 표시
         showReservationCompletionAlert()        

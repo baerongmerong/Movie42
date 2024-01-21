@@ -40,6 +40,8 @@ class MyPageViewController : UIViewController {
         if let loggedInUser = UserDefaultManager.shared.getLoggedInUser() {
             id.text = "ID: \(loggedInUser.userid)"
             nickname.text = "닉네임: \(loggedInUser.nickname)"
+            
+            movieTV.reloadData()
         }
     }
     

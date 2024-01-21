@@ -6,6 +6,8 @@ class ReservationViewModel {
     var selectedTime: String? = "12:00 PM"
     var selectedNumberOfTickets: Int? = 0
     
+    var Mypage = MyPageViewController()
+    
     // 예매 정보를 저장하고 현재 로그인된 유저에 연결하는 메서드
     func saveReservation(with user : User?, with movie: Movie?, with date: Date? ) {
         print("saveReservation called") // 디버깅
@@ -26,6 +28,7 @@ class ReservationViewModel {
         
         // 유저 정보 업데이트
         currentUser.reservations.append(reservation)
+        Mypage.movieTV?.reloadData()
         
         // UserDefaultManager를 활용하여 유저 정보 업데이트
         UserDefaultManager.shared.updateLoggedInUser(currentUser)
