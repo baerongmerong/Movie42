@@ -10,6 +10,8 @@ class EntryViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpBinders()
+        print(defaults.datas)
+       
     }
     
     private func setUpBinders() {
