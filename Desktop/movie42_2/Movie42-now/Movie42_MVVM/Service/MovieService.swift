@@ -1,6 +1,6 @@
 //
 //  MovieService.swift
-//  Movie42_MVVM
+//  TestProject
 //
 //  Created by mirae on 1/18/24.
 //
